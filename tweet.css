@@ -1,0 +1,31 @@
+@charset "utf-8";
+.aramaButonu {
+  background-color: #F60;
+	font-size: medium;
+	font-weight: 800;
+	text-transform: uppercase;
+	font-variant: normal;
+	line-height: normal;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.sonucSayisi {
+	background-color: #FC0;
+	font-style: oblique;
+	font-weight: bold;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+.yenilemeSikligi {
+	background-color: #FC0;
+	font-style: italic;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+}
+.arananKelime {
+	background-color: #FC0;
+}
+.tweetler {
+	background-color: #6F6;
+}
