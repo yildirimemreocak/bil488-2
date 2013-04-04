@@ -1,0 +1,96 @@
+<!--  RECEP YÜKSEL 
+		20926979
+-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Twitter Search</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+
+function tweetAra(arananKelime) {
+    $.ajax({
+		result_type: 'recent',
+        url: 'http://search.twitter.com/search.json?' + jQuery.param(arananKelime),
+        dataType: 'jsonp',
+		
+        success: function(data) {
+            var tweets = $('#tweets');
+            tweets.html('');
+            for (res in data['results']) {
+                tweets.append('<div id="resim"><img src="'+data['results'][res]['profile_image_url']+'" align="left"></div>');
+				tweets.append('<div style="margin-left: 60px;">'+data['results'][res]['from_user_name']+ '@' +data['results'][res]['from_user']+ ' (' + data['results'][res]['created_at'] + ')<p>' + data['results'][res]['text'] + '</p></div><br />');
+				
+            }
+			
+        }
+		
+    });
+	
+}
+
+var int;
+
+$(document).ready(function() {
+    $('#aramaButonu').click(function() {
+        var params = {
+            q: $('#arananKelime').val(),
+            rpp: $("#sonucSayisi").val()
+        };
+        tweetAra(params);
+		clearInterval(int);
+		int=self.setInterval(function(){tweetAra(params)},$("#yenilemeSikligi").val()*1000);
+		
+    });
+});
+
+</script>
+<style type="text/css">
+@import url("tweet.css");
+
+body {
+	background-color: #09C;
+}
+.aramaButonu {
+	font-size: large;
+	font-style: italic;
+	background-color: #CC6;
+}
+</style>
+</head>
+
+<body>
+
+
+	<div style="padding: 20px;">
+
+  	    <p align="center">
+  	      <input type="text" class="arananKelime" id="arananKelime"  />
+  	      
+  	       <select class="yenilemeSikligi" id="yenilemeSikligi">
+  	        <option value="5">5 sn</option>
+  	        <option value="10">10 sn</option>
+  	        <option value="20">20 sn</option>
+  	        <option value="60">60 sn</option>
+          </select>
+  	      <select name="sonucSayisi" class="sonucSayisi" id="sonucSayisi">
+  	        <option value="5">5 sonuç</option>
+  	        <option value="10">10 sonuç</option>
+  	        <option value="20">20 sonuç</option>
+  	        <option value="100">100 sonuç</option>
+          </select>
+      </p>
+  	    <p align="center">
+  	      <input type="button" class="aramaButonu" id="aramaButonu" value="ara!" />
+      </p>
+  	 
+</div>
+<div id="tweets" style="background-color: #9CF; padding: 20px;"  >
+       <div align="center">tweet yok </div>
+</div>
+
+</body>
+</html>
